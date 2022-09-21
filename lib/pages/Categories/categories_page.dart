@@ -50,6 +50,10 @@ class CategoriesPage extends StatelessWidget {
             _buildCard('BEBIDAS', AppImages.drinkCategory),
             _buildCard('LANCHES', AppImages.burguerCategory),
             _buildCard('PIZZAS', AppImages.pizzaCategory),
+            _buildCard('DOCES', AppImages.candyCategory),
+            _buildCard('SORVETES', AppImages.iceCreamCategory),
+            _buildCard('PORÇÕES', AppImages.portionsCategory
+            ),
           ]),
     );
   }

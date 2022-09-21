@@ -43,7 +43,7 @@ class ConsumptionPage extends StatelessWidget {
         child: ElevatedButton(
             style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black)),
             onPressed: () {},
-            child: Text("Enerrar", style: AppTextStyles.buttonTextWhite,)),
+            child: Text("Encerrar", style: AppTextStyles.buttonTextWhite,)),
       ),
     );
   }

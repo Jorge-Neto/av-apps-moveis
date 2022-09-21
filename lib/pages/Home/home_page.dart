@@ -5,7 +5,7 @@ import 'package:avaliacao/pages/Tables/tabes_page.dart';
 import 'package:avaliacao/core/app_text.dart';
 import 'package:flutter/material.dart';
 
-enum Pages { initial, tables, items, settings}
+enum Pages { initial, tables, items, settings }
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,12 +22,14 @@ class _HomePageState extends State<HomePage> {
     ItemsPage(),
     SettingsPage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         centerTitle: true,
-        title: const Text('Mesas | Comandas', style: AppTextStyles.buttonTextBlack),
+        title: const Text('Mesas | Comandas',
+            style: AppTextStyles.buttonTextBlack),
       ),
       body: _pages.elementAt(_tabIndex),
       bottomNavigationBar: BottomNavigationBar(
@@ -71,7 +73,6 @@ class initialScreen extends StatelessWidget {
             Container(
               margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: Row(
-
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const [
                   CustomButtons(title: 'Inserir Item'),
@@ -86,7 +87,6 @@ class initialScreen extends StatelessWidget {
   }
 }
 
-
 class CustomButtons extends StatelessWidget {
   final String title;
 
@@ -98,9 +98,8 @@ class CustomButtons extends StatelessWidget {
         height: 59,
         width: 110,
         child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColors.primary)
-          ),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(AppColors.primary)),
             onPressed: () {},
             child: Text(
               title,
