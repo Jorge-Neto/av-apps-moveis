@@ -26,4 +26,42 @@ class AppTextStyles {
       fontSize: 18,
       fontWeight: FontWeight.bold
   );
+
+  static const TextStyle tableStatus = TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+      fontWeight: FontWeight.bold
+  );
+
+  static const TextStyle tableIndex = TextStyle(
+      color: Colors.white,
+      fontSize: 36,
+      fontWeight: FontWeight.bold
+  );
+
+  static const TextStyle tableValue = TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+      fontWeight: FontWeight.bold
+  );
+
+  static const TextStyle categoryTitle = TextStyle(
+      color: Colors.white,
+      fontSize: 18,
+      fontWeight: FontWeight.bold
+  );
+
+  static const TextStyle consumptionItemTitle = TextStyle(
+      color: Colors.black38,
+      fontSize: 18,
+      fontWeight: FontWeight.bold
+  );
+
+  static const TextStyle consumptionItemValue = TextStyle(
+      color: Colors.black,
+      fontSize: 18,
+      fontWeight: FontWeight.bold
+  );
+
+
 }

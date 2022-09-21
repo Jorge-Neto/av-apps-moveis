@@ -1,4 +1,5 @@
 import 'package:avaliacao/core/app_colors.dart';
+import 'package:avaliacao/core/app_images.dart';
 import 'package:avaliacao/core/app_text.dart';
 import 'package:flutter/material.dart';
 
@@ -10,11 +11,11 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.secondary,
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(8.0, 50.0, 10.0, 0),
         child: Column(
           children: [
             Image.asset(
-              'assets/images/logo.png',
+              AppImages.logo,
               height: 150,
               width: 150,
             ),

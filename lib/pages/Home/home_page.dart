@@ -1,8 +1,8 @@
 import 'package:avaliacao/core/app_colors.dart';
-import 'package:avaliacao/core/app_text.dart';
 import 'package:avaliacao/pages/Items/items_page.dart';
 import 'package:avaliacao/pages/Settings/settings_page.dart';
 import 'package:avaliacao/pages/Tables/tabes_page.dart';
+import 'package:avaliacao/core/app_text.dart';
 import 'package:flutter/material.dart';
 
 enum Pages { initial, tables, items, settings}
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _tabIndex,
         onTap: (index) {
-          this._tabIndex = index;
+          _tabIndex = index;
           setState(() {});
         },
         type: BottomNavigationBarType.fixed,
@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+// ignore: camel_case_types
 class initialScreen extends StatelessWidget {
   const initialScreen({Key? key}) : super(key: key);
 
