@@ -17,23 +17,23 @@ class ConsumptionPage extends StatelessWidget {
           return ListTile(
             title:
                 Text(item.itemName, style: AppTextStyles.consumptionItemTitle),
-            trailing: Text("R\$ ${item.itemValue.toDouble().toStringAsFixed(2)}",
+            trailing: Text("R\$ ${item.itemValue.toStringAsFixed(2)}",
                 style: AppTextStyles.consumptionItemValue),
           );
         });
   }
 
-  _buildTotal() {
+  _buildTotal(CommandModel model) {
     return Padding(
       padding: const EdgeInsets.only(right: 15.0, bottom: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: const [
+        children: [
           Text(
             "Total:",
             style: AppTextStyles.consumptionItemValue,
           ),
-          Text("R\$ 15.00", style: AppTextStyles.consumptionItemValue)
+          Text("R\$ ${model.total.toStringAsFixed(2)}", style: AppTextStyles.consumptionItemValue)
         ],
       ),
     );
@@ -61,7 +61,7 @@ class ConsumptionPage extends StatelessWidget {
     return Column(
       children: [
         Expanded(flex: 3, child: _buildList(model)),
-        Expanded(flex: 1, child: _buildTotal()),
+        Expanded(flex: 1, child: _buildTotal(model)),
         _buidButton(),
         const SizedBox(
           height: 30,

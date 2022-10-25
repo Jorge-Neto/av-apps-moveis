@@ -31,38 +31,25 @@ class CommandsRepository {
     }
   }
 
-  Future<void> saveTable(String tableState, String tableName, int tableJunction,
-      double tableValue) async {
+  Future<void> saveCommand(command) async {
     try {
-      final table = ParseObject('Tables')
-        ..set('tableState', tableState)
-        ..set('tableName', tableName)
-        ..set('tableJunction', tableJunction)
-        ..set('tableValue', tableValue);
-      await table.save();
+
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<void> updateTable(String id, String tableState, int tableJunction,
-      double tableValue) async {
+  Future<void> updateCommand(command) async {
     try {
-      var table = ParseObject('Table')
-        ..objectId = id
-        ..set('tableState', tableState)
-        ..set('tableJunction', tableJunction)
-        ..set('tableValue', tableValue);
-      await table.save();
+
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<void> deleteTable(String id) async {
+  Future<void> deleteCommand(command) async {
     try {
-      var table = ParseObject('Table')..objectId = id;
-      await table.delete();
+
     } catch (e) {
       throw Exception(e);
     }
