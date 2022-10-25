@@ -13,7 +13,6 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Lanchonete',
       theme: ThemeData(
-        primaryColor: AppColors.primary,
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: AppColors.primary,
           secondary: AppColors.secondary,

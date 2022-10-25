@@ -1,33 +1,38 @@
-import 'package:avaliacao/core/app_colors.dart';
 import 'package:avaliacao/core/app_text.dart';
+import 'package:avaliacao/models/command_model.dart';
+import 'package:avaliacao/repositories/commands_repository.dart';
 import 'package:flutter/material.dart';
 
 class ConsumptionPage extends StatelessWidget {
+  final repository = CommandsRepository();
   final int tableNumber;
 
-  const ConsumptionPage({Key? key, required this.tableNumber})
-      : super(key: key);
+  ConsumptionPage({Key? key, required this.tableNumber}) : super(key: key);
 
-  _buildList() {
+  _buildList(CommandModel model) {
     return ListView.builder(
-        itemCount: 3,
+        itemCount: model.itens?.length,
         itemBuilder: (context, index) {
+          final item = model.itens![index];
           return ListTile(
-            title: Text("Cola-Cola", style: AppTextStyles.consumptionItemTitle),
-            trailing: Text(
-                "R\$ 5.00", style: AppTextStyles.consumptionItemValue),
+            title:
+                Text(item.itemName, style: AppTextStyles.consumptionItemTitle),
+            trailing: Text("R\$ ${item.itemValue.toDouble().toStringAsFixed(2)}",
+                style: AppTextStyles.consumptionItemValue),
           );
-        }
-    );
+        });
   }
 
-  _buildTotal(){
+  _buildTotal() {
     return Padding(
       padding: const EdgeInsets.only(right: 15.0, bottom: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text("Total:", style: AppTextStyles.consumptionItemValue,),
+        children: const [
+          Text(
+            "Total:",
+            style: AppTextStyles.consumptionItemValue,
+          ),
           Text("R\$ 15.00", style: AppTextStyles.consumptionItemValue)
         ],
       ),
@@ -37,25 +42,44 @@ class ConsumptionPage extends StatelessWidget {
   _buidButton() {
     return Padding(
       padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-      child: Container(
+      child: SizedBox(
         height: 40,
         width: double.infinity,
         child: ElevatedButton(
-            style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black)),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.black)),
             onPressed: () {},
-            child: Text("Encerrar", style: AppTextStyles.buttonTextWhite,)),
+            child: const Text(
+              "Encerrar",
+              style: AppTextStyles.buttonTextWhite,
+            )),
       ),
     );
   }
 
-  _buildBody() {
+  _buildBody(CommandModel model) {
     return Column(
       children: [
-        Expanded(child: _buildList()),
-        _buildTotal(),
+        Expanded(flex: 3, child: _buildList(model)),
+        Expanded(flex: 1, child: _buildTotal()),
         _buidButton(),
-        SizedBox(height: 30,)
+        const SizedBox(
+          height: 30,
+        )
       ],
+    );
+  }
+
+  _buildLoading() {
+    return Center(child: LinearProgressIndicator());
+  }
+
+  _buildError() {
+    return Center(
+      child: Text(
+        'Erro ao buscar informações do consumo!',
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+      ),
     );
   }
 
@@ -67,7 +91,24 @@ class ConsumptionPage extends StatelessWidget {
         title: Text("Produtos | Mesa ${tableNumber.toString().padLeft(2, "0")}",
             style: AppTextStyles.buttonTextBlack),
       ),
-      body: _buildBody(),
+      body: FutureBuilder<CommandModel>(
+          future: repository.getCommand(tableNumber),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return _buildError();
+            }
+            if (!snapshot.hasData) {
+              return const Center(
+                child: Text("Nenhum dado foi encontrado"),
+              );
+            }
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.hasData) {
+              final comanda = snapshot.data!;
+              return _buildBody(comanda);
+            }
+            return _buildLoading();
+          }),
     );
   }
 }

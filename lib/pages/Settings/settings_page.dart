@@ -1,4 +1,3 @@
-import 'package:avaliacao/core/app_text.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -6,11 +5,17 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(
-          'Settings',
-          style: AppTextStyles.buttonTextBlack,
+    return Container(
+      margin: const EdgeInsets.all(10),
+      child: Center(
+        child: TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Servidor',
+            hintText: 'Informe o IP do servidor',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10)
+            )
+          ),
         ),
       ),
     );

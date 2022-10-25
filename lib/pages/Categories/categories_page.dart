@@ -13,8 +13,8 @@ class CategoriesPage extends StatelessWidget {
         height: 155,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            const BoxShadow(offset: Offset(2.0, 2.0), blurRadius: 5, spreadRadius: 1)
+          boxShadow: const [
+            BoxShadow(offset: Offset(2.0, 2.0), blurRadius: 5, spreadRadius: 1)
           ],
           image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
         ),

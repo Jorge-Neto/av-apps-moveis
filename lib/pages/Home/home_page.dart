@@ -17,10 +17,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _tabIndex = 0;
   final _pages = <Widget>[
-    initialScreen(),
+    const initialScreen(),
     TablesPage(),
-    ItemsPage(),
-    SettingsPage(),
+    const ItemsPage(),
+    const SettingsPage(),
   ];
 
   @override

@@ -35,6 +35,21 @@ String statusToString(TableStatus value) {
   return name;
 }
 
+TableStatus stringToStatus(String value) {
+  TableStatus status = TableStatus.free;
+  switch (value) {
+    case 'A':
+      break;
+    case "O":
+      status = TableStatus.occupied;
+      break;
+    case "F":
+      status = TableStatus.closing;
+      break;
+  }
+  return status;
+}
+
 class ItemWidget extends StatelessWidget {
   final TableStatus status;
   final int index;
@@ -55,7 +70,7 @@ class ItemWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             color: statusToColor(status),
-            boxShadow: [
+            boxShadow: const [
           BoxShadow(
               offset: Offset(1, 1), color: Colors.black87, blurRadius: 2.0)
         ]),
@@ -69,11 +84,11 @@ class ItemWidget extends StatelessWidget {
               style: AppTextStyles.tableStatus,
             ),
             Text(
-              '${index.toString().padLeft(2, '0')}',
+              index.toString().padLeft(2, '0'),
               style: AppTextStyles.tableIndex,
             ),
             Text(
-              '${totalValue.toStringAsFixed(2)}',
+              totalValue.toStringAsFixed(2),
               style: AppTextStyles.tableValue,
             )
           ],
