@@ -33,7 +33,8 @@ class ConsumptionPage extends StatelessWidget {
             "Total:",
             style: AppTextStyles.consumptionItemValue,
           ),
-          Text("R\$ ${model.total.toStringAsFixed(2)}", style: AppTextStyles.consumptionItemValue)
+          Text("R\$ ${model.total.toStringAsFixed(2)}",
+              style: AppTextStyles.consumptionItemValue)
         ],
       ),
     );
@@ -70,10 +71,6 @@ class ConsumptionPage extends StatelessWidget {
     );
   }
 
-  _buildLoading() {
-    return Center(child: LinearProgressIndicator());
-  }
-
   _buildError() {
     return Center(
       child: Text(
@@ -81,6 +78,19 @@ class ConsumptionPage extends StatelessWidget {
         style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
       ),
     );
+  }
+
+  _buildNoData() {
+    return Center(
+      child: Text(
+        'Nenhum consumo encontrado!',
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  _buildLoading() {
+    return Center(child: LinearProgressIndicator());
   }
 
   @override
@@ -98,9 +108,7 @@ class ConsumptionPage extends StatelessWidget {
               return _buildError();
             }
             if (!snapshot.hasData) {
-              return const Center(
-                child: Text("Nenhum dado foi encontrado"),
-              );
+              return _buildNoData();
             }
             if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.hasData) {

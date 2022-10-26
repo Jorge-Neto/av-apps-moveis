@@ -1,12 +1,16 @@
 import 'package:avaliacao/core/app_images.dart';
 import 'package:avaliacao/core/app_text.dart';
+import 'package:avaliacao/models/category_model.dart';
+import 'package:avaliacao/repositories/category_repository.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
   final int tableNumber;
-  const CategoriesPage({Key? key, required this.tableNumber}) : super(key: key);
+  final repository = CategoryRepository();
 
-  _buildCard(String title, String image) {
+  CategoriesPage({Key? key, required this.tableNumber}) : super(key: key);
+
+  Widget _buildCard(String title, String image) {
     return Stack(children: [
       Container(
         width: 155,
@@ -20,8 +24,8 @@ class CategoriesPage extends StatelessWidget {
         ),
       ),
       Positioned(
-        bottom: 30,
-        left: 5,
+        bottom: 35,
+        left: 4,
         child: Container(
           decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.8),
@@ -40,21 +44,57 @@ class CategoriesPage extends StatelessWidget {
     ]);
   }
 
+  GridView _buildSuccess(List<CategoryModel> categoriesList) {
+    return GridView(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, crossAxisSpacing: 5, mainAxisSpacing: 5),
+      children: categoriesList
+          .map((model) => _buildCard(model.name, AppImages.burguerCategory))
+          .toList(),
+    );
+  }
+
+  _buildError() {
+    return Center(
+      child: Text(
+        'Erro ao buscar categorias!',
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  _buildNoData() {
+    return Center(
+      child: Text(
+        'Nenhuma categoria encontrada!',
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  _buildLoading() {
+    return Center(child: LinearProgressIndicator());
+  }
+
   _buildBody() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: GridView(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
-          children: <Widget>[
-            _buildCard('BEBIDAS', AppImages.drinkCategory),
-            _buildCard('LANCHES', AppImages.burguerCategory),
-            _buildCard('PIZZAS', AppImages.pizzaCategory),
-            _buildCard('DOCES', AppImages.candyCategory),
-            _buildCard('SORVETES', AppImages.iceCreamCategory),
-            _buildCard('PORÇÕES', AppImages.portionsCategory
-            ),
-          ]),
+      child: FutureBuilder<List<CategoryModel>>(
+          initialData: const [],
+          future: repository.getCategories(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return _buildError();
+            }
+            if (!snapshot.hasData) {
+              return _buildNoData();
+            }
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.hasData) {
+              return _buildSuccess(snapshot.data!);
+            }
+            return _buildLoading();
+          }),
     );
   }
 

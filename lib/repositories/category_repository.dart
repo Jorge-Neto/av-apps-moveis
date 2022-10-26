@@ -4,7 +4,7 @@ import 'package:avaliacao/models/category_model.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class CategoryRepository {
-  Future<List<CategoryModel>> getCategories(int table) async {
+  Future<List<CategoryModel>> getCategories() async {
     try {
       QueryBuilder<ParseObject> queryCategories =
           QueryBuilder<ParseObject>(ParseObject('Categories'));

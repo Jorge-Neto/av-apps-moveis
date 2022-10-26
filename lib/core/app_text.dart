@@ -47,7 +47,7 @@ class AppTextStyles {
 
   static const TextStyle categoryTitle = TextStyle(
       color: Colors.white,
-      fontSize: 18,
+      fontSize: 11,
       fontWeight: FontWeight.bold
   );
 
