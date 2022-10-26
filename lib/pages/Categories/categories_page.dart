@@ -1,4 +1,3 @@
-import 'package:avaliacao/core/app_images.dart';
 import 'package:avaliacao/core/app_text.dart';
 import 'package:avaliacao/models/category_model.dart';
 import 'package:avaliacao/repositories/category_repository.dart';
@@ -20,7 +19,7 @@ class CategoriesPage extends StatelessWidget {
           boxShadow: const [
             BoxShadow(offset: Offset(2.0, 2.0), blurRadius: 5, spreadRadius: 1)
           ],
-          image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
+          image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
         ),
       ),
       Positioned(
@@ -49,7 +48,7 @@ class CategoriesPage extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, crossAxisSpacing: 5, mainAxisSpacing: 5),
       children: categoriesList
-          .map((model) => _buildCard(model.name, AppImages.burguerCategory))
+          .map((model) => _buildCard(model.name, model.imageUrl))
           .toList(),
     );
   }
@@ -78,7 +77,7 @@ class CategoriesPage extends StatelessWidget {
 
   _buildBody() {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.fromLTRB(25.0, 30.0, 10.0, 10.0),
       child: FutureBuilder<List<CategoryModel>>(
           initialData: const [],
           future: repository.getCategories(),

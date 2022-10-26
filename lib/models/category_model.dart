@@ -4,14 +4,16 @@ class CategoryModel {
   final String objectId;
   final int code;
   final String name;
+  final String imageUrl;
 
-  CategoryModel({required this.objectId, required this.code, required this.name});
+  CategoryModel({required this.objectId, required this.code, required this.name, required this.imageUrl});
 
   Map<String, dynamic> toMap() {
     return {
       'objectId': objectId,
       'code': code,
       'name': name,
+      'imageUrl': imageUrl,
     };
   }
 
@@ -20,6 +22,7 @@ class CategoryModel {
       objectId: map['objectId'] ?? '',
       code: map['code']?.toInt() ?? 0,
       name: map['name'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
     );
   }
 

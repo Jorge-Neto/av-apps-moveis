@@ -17,11 +17,13 @@ class CategoryRepository {
           final id = object.objectId;
           final code = object.get<int>('code')!;
           final name = object.get<String>('name')!;
+          final imageUrl = object.get<String>('imageUrl')!;
 
           CategoryModel category = CategoryModel(
             objectId: id!,
             code: code,
             name: name,
+            imageUrl: imageUrl,
           );
 
           categoryList.add(category);
