@@ -1,46 +1,64 @@
 import 'package:avaliacao/core/app_text.dart';
 import 'package:avaliacao/models/category_model.dart';
+import 'package:avaliacao/models/product_arguments_model.dart';
 import 'package:avaliacao/repositories/category_repository.dart';
 import 'package:flutter/material.dart';
 
-class CategoriesPage extends StatelessWidget {
+class CategoriesPage extends StatefulWidget {
   final int tableNumber;
-  final repository = CategoryRepository();
 
   CategoriesPage({Key? key, required this.tableNumber}) : super(key: key);
 
-  Widget _buildCard(String title, String image) {
-    return Stack(children: [
-      Container(
-        width: 155,
-        height: 155,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: const [
-            BoxShadow(offset: Offset(2.0, 2.0), blurRadius: 5, spreadRadius: 1)
-          ],
-          image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
-        ),
-      ),
-      Positioned(
-        bottom: 35,
-        left: 4,
-        child: Container(
+  @override
+  State<CategoriesPage> createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
+  final repository = CategoryRepository();
+
+  Widget _buildCard(String title, String image, int id) {
+    return GestureDetector(
+      onTap: () {
+        final arguments = ProductArguments(
+            categoryCode: id,
+            tableCode: widget.tableNumber,
+            categoryName: title);
+        Navigator.of(context).pushNamed('/products', arguments: arguments);
+      },
+      child: Stack(children: [
+        Container(
+          width: 155,
+          height: 155,
           decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(5)),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                title,
-                style: AppTextStyles.categoryTitle,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: const [
+              BoxShadow(
+                  offset: Offset(2.0, 2.0), blurRadius: 5, spreadRadius: 1)
+            ],
+            image:
+                DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+          ),
+        ),
+        Positioned(
+          bottom: 35,
+          left: 4,
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.8),
+                borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  title,
+                  style: AppTextStyles.categoryTitle,
+                ),
               ),
             ),
           ),
         ),
-      ),
-    ]);
+      ]),
+    );
   }
 
   GridView _buildSuccess(List<CategoryModel> categoriesList) {
@@ -48,7 +66,7 @@ class CategoriesPage extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, crossAxisSpacing: 5, mainAxisSpacing: 5),
       children: categoriesList
-          .map((model) => _buildCard(model.name, model.imageUrl))
+          .map((model) => _buildCard(model.name, model.imageUrl, model.code))
           .toList(),
     );
   }
@@ -102,7 +120,7 @@ class CategoriesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Categorias | Mesa ${tableNumber.toString().padLeft(2, "0")}',
+          'Categorias | Mesa ${widget.tableNumber.toString().padLeft(2, "0")}',
           style: AppTextStyles.buttonTextBlack,
         ),
       ),

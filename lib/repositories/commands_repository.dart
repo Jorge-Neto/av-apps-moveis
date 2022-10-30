@@ -7,15 +7,17 @@ class CommandsRepository {
   Future<CommandModel> getCommand(int table) async {
     try {
       QueryBuilder<ParseObject> queryCommands =
-      QueryBuilder<ParseObject>(ParseObject('Comanda'))..whereEqualTo('objectId', "UnFqIrar4A");
+      QueryBuilder<ParseObject>(ParseObject('Comanda'))
+          ..whereEqualTo('comTable', table);
+      queryCommands.includeObject(['Itens']);
       final ParseResponse parseResponse = await queryCommands.query();
-      final object = (parseResponse.results!.first) as ParseObject;
+      final object = (parseResponse.results?.first) as ParseObject;
 
       final id = object.objectId;
       final comCode = object.get<int>('comCode')!;
       final comTable = object.get<int>('comTable')!;
       final comValue = object.get('comValue')!;
-      final itens = object.get('itens')! ?? [];
+      final itens = object.get("Itens");
 
       CommandModel command = CommandModel(
         objectId: id!,
