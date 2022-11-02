@@ -1,42 +1,35 @@
 import 'package:avaliacao/components/item_widet.dart';
+import 'package:avaliacao/models-views/table_store.dart';
 import 'package:avaliacao/models/table_model.dart';
-import 'package:avaliacao/repositories/tables_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class TablesPage extends StatelessWidget {
-  final repository = TablesRepository();
-
   TablesPage({Key? key}) : super(key: key);
+  final tableStore = TableStore();
 
-  List<Widget> _buildItemCard(List<TableModel> tablesList) {
-    var list = <Widget>[];
-    for (var i = 0; i < tablesList.length; i++) {
-      var table = tablesList[i];
-      list.add(
-        ItemWidget(
-            status: stringToStatus(table.tableState),
-            index: i + 1,
-            totalValue: table.tableValue),
-      );
-    }
-    return list;
-  }
-
-  GridView _buildGridTables(List<TableModel> tablesList) {
-    return GridView(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 15),
-      children: _buildItemCard(tablesList),
+  Widget _buildItemCard(TableModel table, index) {
+    return ItemWidget(
+      status: stringToStatus(table.tableState),
+      totalValue: table.tableValue,
+      index: index,
     );
   }
 
-  _buildError() {
-    return Center(
-      child: Text(
-        'Erro ao buscar informações das mesas!',
-        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-      ),
-    );
+  GridView _buildGridTables() {
+    return GridView.builder(
+        padding: const EdgeInsets.only(top: 10.0),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 15),
+        itemCount: tableStore.TablesList.length,
+        itemBuilder: (context, index) {
+          final table = tableStore.TablesList[index];
+
+          ///Serve para atualizar o item
+          return Observer(builder: (_) {
+            return _buildItemCard(table, index);
+          });
+        });
   }
 
   _buildNoData() {
@@ -55,26 +48,15 @@ class TablesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(15.0, 18.0, 15.0, 0),
-        child: FutureBuilder<List<TableModel>>(
-          future: repository.getTable(),
-          initialData: const [],
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return _buildError();
-            }
-            if (!snapshot.hasData) {
-              return _buildNoData();
-            }
-            if (snapshot.connectionState == ConnectionState.done &&
-                snapshot.hasData) {
-              return _buildGridTables(snapshot.data!);
-            }
-            return _buildLoading();
-          },
-        ),
-      ),
+      body: Observer(builder: (_) {
+        if (tableStore.isLoading) {
+          return _buildLoading();
+        }
+        if (tableStore.TablesList.isEmpty) {
+          return _buildNoData();
+        }
+        return _buildGridTables();
+      }),
     );
   }
 }

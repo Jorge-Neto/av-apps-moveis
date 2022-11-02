@@ -69,10 +69,11 @@ class TablesRepository {
     }
   }
 
-  Future<void> deleteTable(String id) async {
+  Future<bool> deleteTable(String id) async {
     try {
       var table = ParseObject('Table')..objectId = id;
       await table.delete();
+      return true;
     } catch (e) {
       throw Exception(e);
     }
