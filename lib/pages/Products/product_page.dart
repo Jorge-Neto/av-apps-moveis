@@ -1,25 +1,51 @@
 import 'package:avaliacao/components/product_widget.dart';
 import 'package:avaliacao/core/app_text.dart';
+import 'package:avaliacao/models/product_model.dart';
+import 'package:avaliacao/repositories/products_repository.dart';
+
 import 'package:flutter/material.dart';
 
 class ProductsPage extends StatelessWidget {
   final String categoryName;
   final int categoryCode;
   final int tableCode;
+  final repository = ProductsRepository();
 
-  ProductsPage(
-      {Key? key,
-      required this.categoryName,
-      required this.categoryCode,
-      required this.tableCode})
+  ProductsPage({Key? key,
+    required this.categoryName,
+    required this.categoryCode,
+    required this.tableCode})
       : super(key: key);
 
-  Widget _buildBody() {
+  Widget _buildBody(List<ProductModel> productsList) {
     return ListView(
-      children: [
-        ProductWidget(),
-      ],
+      children: productsList.map((model) =>
+          ProductWidget(productModel: model,
+          )
+      ).toList(),
     );
+  }
+
+  _buildError() {
+    return Center(
+      child: Text(
+        'Erro ao buscar produtos!',
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  _buildNoData() {
+    return Center(
+      child: Text(
+        'Nenhum produto encontrado!',
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  _buildLoading() {
+    return Center(child: LinearProgressIndicator());
   }
 
   @override
@@ -27,12 +53,28 @@ class ProductsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "${this.categoryName} | Mesa ${this.tableCode.toString().padLeft(2, '0')}",
+          "${this.categoryName} | Mesa ${this.tableCode.toString().padLeft(
+              2, '0')}",
           style: AppTextStyles.buttonTextBlack,
         ),
         centerTitle: true,
       ),
-      body: _buildBody(),
+      body: FutureBuilder<List<ProductModel>>(
+          future: repository.getProductsByCategory(categoryCode),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return _buildError();
+            }
+            if (!snapshot.hasData) {
+              return _buildNoData();
+            }
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.hasData) {
+              return _buildBody(snapshot.data!);
+            }
+            return _buildLoading();
+          }
+      ),
     );
   }
 }
