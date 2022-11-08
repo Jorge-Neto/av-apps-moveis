@@ -13,6 +13,6 @@ class CommandModel {
       this.itens});
 
   double get total => itens!
-      .map((e) => e.itemValue)
+      .map((e) => e.value)
       .reduce((value, element) => value + element);
 }

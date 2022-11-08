@@ -8,6 +8,19 @@ import 'package:avaliacao/models/command_model.dart';
 class CommandsRepository {
   final productRepository = ProductsRepository();
 
+  getProductsList(listItens) async {
+    try {
+      List<ProductModel> productsList = [];
+      listItens.forEach((item) async {
+        ProductModel product = await productRepository.getProduct(item.objectId);
+        productsList.add(product);
+      });
+      return productsList;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<CommandModel> getCommand(int table) async {
     try {
       QueryBuilder<ParseObject> queryCommand =
@@ -24,10 +37,15 @@ class CommandsRepository {
       final itens = object.get("consumption");
 
       List<ProductModel> productsList = [];
-      await itens.forEach((item) async {
-        ProductModel product = await productRepository.getProduct(item.objectId);
-        productsList.add(product);
-      });
+      for (dynamic item in itens) {
+        try {
+          ProductModel product = await productRepository.getProduct(item.objectId);
+          productsList.add(product);
+        } catch (e) {
+          throw Exception(e);
+        }
+      }
+
 
       CommandModel command = CommandModel(
         objectId: id!,
