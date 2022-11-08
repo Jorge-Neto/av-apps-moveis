@@ -12,15 +12,18 @@ class TablesPage extends StatelessWidget {
     return ItemWidget(
       status: stringToStatus(table.tableState),
       totalValue: table.tableValue,
-      index: index,
+      index: table.tableCode,
     );
   }
 
   GridView _buildGridTables() {
     return GridView.builder(
-        padding: const EdgeInsets.only(top: 10.0),
+        padding: const EdgeInsets.fromLTRB(15.0, 18.0, 15.0, 0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 15),
+            crossAxisCount: 3,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 15
+        ),
         itemCount: tableStore.TablesList.length,
         itemBuilder: (context, index) {
           final table = tableStore.TablesList[index];

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:avaliacao/components/product_widget.dart';
 import 'package:avaliacao/core/app_text.dart';
 import 'package:avaliacao/models/product_model.dart';
@@ -53,7 +55,7 @@ class ProductsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "${this.categoryName} | Mesa ${this.tableCode.toString().padLeft(
+          "${categoryName} | Mesa ${tableCode.toString().padLeft(
               2, '0')}",
           style: AppTextStyles.buttonTextBlack,
         ),
