@@ -17,13 +17,13 @@ class ProductWidget extends StatelessWidget {
             counter.value += 1;
           },
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.green,
               shape: BoxShape.circle,
             ),
             height: 30,
             width: 30,
-            child: Icon(
+            child: const Icon(
               Icons.add,
               color: Colors.white,
             ),
@@ -39,16 +39,15 @@ class ProductWidget extends StatelessWidget {
             if (counter.value >= 1) {
               counter.value -= 1;
             }
-            ;
           },
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.red,
               shape: BoxShape.circle,
             ),
             height: 30,
             width: 30,
-            child: Icon(
+            child: const Icon(
               Icons.remove,
               color: Colors.white,
             ),
@@ -76,31 +75,31 @@ class ProductWidget extends StatelessWidget {
             ),
             Column(
               children: [
-                Container(
+                SizedBox(
                   width: 150,
                   child: Center(
                     child: Text(
                       productModel.name,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
                   'R\$ ${productModel.value.toStringAsFixed(2)}',
                   style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                      const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
             _buildActions(),
-            SizedBox(
+            const SizedBox(
               width: 1,
             ),
           ],

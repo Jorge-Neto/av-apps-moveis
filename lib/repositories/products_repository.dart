@@ -4,11 +4,11 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:avaliacao/models/product_model.dart';
 
 class ProductsRepository {
-
   Future<List<ProductModel>> getProductsByCategory(int category) async {
     try {
       QueryBuilder<ParseObject> queryProducts =
-      QueryBuilder<ParseObject>(ParseObject('Products'))..whereEqualTo('category', category);
+          QueryBuilder<ParseObject>(ParseObject('Products'))
+            ..whereEqualTo('category', category);
 
       final ParseResponse parseResponse = await queryProducts.query();
       List<ProductModel> productsList = [];
@@ -35,10 +35,37 @@ class ProductsRepository {
       }
 
       return productsList;
-
     } catch (e) {
       throw Exception(e);
     }
   }
 
+  Future<ProductModel> getProduct(String objectId) async {
+    try {
+      QueryBuilder<ParseObject> queryProduct =
+      QueryBuilder<ParseObject>(ParseObject('Products'))
+        ..whereEqualTo('objectId', objectId);
+
+      final ParseResponse apiResponse = await queryProduct.query();
+      final object = (apiResponse.results?.first) as ParseObject;
+
+      final id = object.objectId;
+      final code = object.get<int>('code')!;
+      final name = object.get<String>('name')!;
+      final value = object.get('value')!;
+      final imageUrl = object.get<String>('imageUrl')!;
+
+      ProductModel product = ProductModel(
+        objectId: id!,
+        code: code,
+        name: name,
+        value: value.toDouble(),
+        imageUrl: imageUrl,
+      );
+
+      return product;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
