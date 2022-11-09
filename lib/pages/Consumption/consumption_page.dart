@@ -40,7 +40,7 @@ class ConsumptionPage extends StatelessWidget {
     );
   }
 
-  _buidButton() {
+  _buidButton(CommandModel comanda, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 30.0, right: 30.0),
       child: SizedBox(
@@ -49,7 +49,10 @@ class ConsumptionPage extends StatelessWidget {
         child: ElevatedButton(
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.black)),
-            onPressed: () {},
+            onPressed: () {
+              repository.clearCommand(comanda);
+              Navigator.of(context).pushReplacementNamed("/home");
+            },
             child: const Text(
               "Encerrar",
               style: AppTextStyles.buttonTextWhite,
@@ -58,12 +61,12 @@ class ConsumptionPage extends StatelessWidget {
     );
   }
 
-  _buildBody(CommandModel model) {
+  _buildBody(CommandModel model, BuildContext context) {
     return Column(
       children: [
         Expanded(flex: 3, child: _buildList(model)),
         Expanded(flex: 1, child: _buildTotal(model)),
-        _buidButton(),
+        _buidButton(model, context),
         const SizedBox(
           height: 30,
         )
@@ -113,7 +116,7 @@ class ConsumptionPage extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.hasData) {
               final comanda = snapshot.data!;
-              return _buildBody(comanda);
+              return _buildBody(comanda, context);
             }
             return _buildLoading();
           }),

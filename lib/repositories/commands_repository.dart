@@ -12,7 +12,8 @@ class CommandsRepository {
     try {
       List<ProductModel> productsList = [];
       listItens.forEach((item) async {
-        ProductModel product = await productRepository.getProduct(item.objectId);
+        ProductModel product =
+            await productRepository.getProduct(item.objectId);
         productsList.add(product);
       });
       return productsList;
@@ -24,8 +25,8 @@ class CommandsRepository {
   Future<CommandModel> getCommand(int table) async {
     try {
       QueryBuilder<ParseObject> queryCommand =
-      QueryBuilder<ParseObject>(ParseObject('Comanda'))
-        ..whereEqualTo('objectId', 'UnFqIrar4A');
+          QueryBuilder<ParseObject>(ParseObject('Comanda'))
+            ..whereEqualTo('objectId', 'UnFqIrar4A');
 
       final ParseResponse parseResponse = await queryCommand.query();
       final object = (parseResponse.results?.first) as ParseObject;
@@ -39,13 +40,13 @@ class CommandsRepository {
       List<ProductModel> productsList = [];
       for (dynamic item in itens) {
         try {
-          ProductModel product = await productRepository.getProduct(item.objectId);
+          ProductModel product =
+              await productRepository.getProduct(item.objectId);
           productsList.add(product);
         } catch (e) {
           throw Exception(e);
         }
       }
-
 
       CommandModel command = CommandModel(
         objectId: id!,
@@ -56,6 +57,30 @@ class CommandsRepository {
       );
 
       return command;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> clearCommand(CommandModel command) async {
+    try {
+      var commandToSet = ParseObject('Comanda')
+        ..objectId = command.objectId
+        ..set('consumption', [
+          {"__type": "Pointer", "className": "_Product", "objectId": ""}
+        ]);
+      await commandToSet.save();
+
+      QueryBuilder<ParseObject> queryTable =
+          QueryBuilder<ParseObject>(ParseObject('Tables'))
+            ..whereEqualTo('tableCode', command.comTable);
+      final ParseResponse parseResponse = await queryTable.query();
+      final object = (parseResponse.results?.first) as ParseObject;
+      var tableToClear = ParseObject('Tables')
+        ..objectId = object.objectId
+        ..set('tableValue', 0)
+        ..set('tableState', "A");
+      await tableToClear.save();
     } catch (e) {
       throw Exception(e);
     }
