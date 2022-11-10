@@ -4,7 +4,6 @@ class TableModel {
   final String objectId;
   final String tableName;
   final String tableState;
-  final int tableJunction;
   final double tableValue;
   final int tableCode;
 
@@ -12,7 +11,6 @@ class TableModel {
     required this.objectId,
     required this.tableName,
     required this.tableState,
-    required this.tableJunction,
     required this.tableValue,
     required this.tableCode,
   });
@@ -22,7 +20,6 @@ class TableModel {
       'objectId': objectId,
       'tableName': tableName,
       'tableState': tableState,
-      'tableJunction': tableJunction,
       'tableValue': tableValue,
       'tableCode': tableCode,
     };
@@ -33,7 +30,6 @@ class TableModel {
       objectId: map['objectId'] ?? '',
       tableName: map['tableName'] ?? '',
       tableState: map['tableState'] ?? '',
-      tableJunction: map['tableJunction']?.toInt() ?? 0,
       tableValue: map['tableValue']?.toDouble() ?? 0.0,
       tableCode: map['tableCode']?.toInt() ?? 0,
     );

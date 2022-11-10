@@ -17,7 +17,6 @@ class TablesRepository {
           final id = object.objectId;
           final tableName = object.get<String>('tableName')!;
           final tableState = object.get<String>('tableState')!;
-          final tableJunction = object.get<int>('tableJunction')!;
           final tableValue = object.get('tableValue')!;
           final tableCode = object.get<int>('tableCode')!;
 
@@ -25,7 +24,6 @@ class TablesRepository {
             objectId: id!,
             tableName: tableName,
             tableState: tableState,
-            tableJunction: tableJunction,
             tableValue: tableValue.toDouble(),
             tableCode: tableCode,
           );
@@ -61,7 +59,6 @@ class TablesRepository {
       var table = ParseObject('Table')
         ..objectId = id
         ..set('tableState', tableState)
-        ..set('tableJunction', tableJunction)
         ..set('tableValue', tableValue);
       await table.save();
     } catch (e) {
