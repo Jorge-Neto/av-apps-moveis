@@ -36,7 +36,7 @@ class TablesPage extends StatelessWidget {
   }
 
   _buildNoData() {
-    return Center(
+    return const Center(
       child: Text(
         'Nenhuma mesa encontrada!',
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -45,7 +45,7 @@ class TablesPage extends StatelessWidget {
   }
 
   _buildLoading() {
-    return Center(child: LinearProgressIndicator());
+    return const Center(child: LinearProgressIndicator());
   }
 
   @override

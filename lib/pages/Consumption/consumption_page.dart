@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:avaliacao/core/app_text.dart';
 import 'package:avaliacao/models/command_model.dart';
 import 'package:avaliacao/repositories/commands_repository.dart';

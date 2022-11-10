@@ -29,7 +29,7 @@ class ProductsPage extends StatelessWidget {
   }
 
   _buildError() {
-    return Center(
+    return const Center(
       child: Text(
         'Erro ao buscar produtos!',
         style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
@@ -38,7 +38,7 @@ class ProductsPage extends StatelessWidget {
   }
 
   _buildNoData() {
-    return Center(
+    return const Center(
       child: Text(
         'Nenhum produto encontrado!',
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -47,7 +47,7 @@ class ProductsPage extends StatelessWidget {
   }
 
   _buildLoading() {
-    return Center(child: LinearProgressIndicator());
+    return const Center(child: LinearProgressIndicator());
   }
 
   @override

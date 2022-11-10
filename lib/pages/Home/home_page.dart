@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.apps_sharp), label: "Mesas"),
           BottomNavigationBarItem(
               icon: Icon(Icons.inventory_2_sharp), label: "Itens"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Configs"),
+          BottomNavigationBarItem(icon: Icon(Icons.exit_to_app), label: "Sair"),
         ],
       ),
     );
