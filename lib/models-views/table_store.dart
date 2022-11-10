@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api
+
 import 'package:avaliacao/models/table_model.dart';
 import 'package:avaliacao/repositories/tables_repository.dart';
 import 'package:mobx/mobx.dart';

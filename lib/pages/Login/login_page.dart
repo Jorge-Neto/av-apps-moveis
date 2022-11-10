@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+
 import 'package:avaliacao/core/app_colors.dart';
 import 'package:avaliacao/core/app_images.dart';
 import 'package:avaliacao/core/app_text.dart';
@@ -119,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
   void doUserLogin() async {
     final username = controllerUsername.text.trim();
     final password = controllerPassword.text.trim();
-    if(username.length < 1 || password.length < 1) {
+    if(username.isEmpty || password.isEmpty) {
       showError("Todos os campos devem ser preenchidos");
     }
 

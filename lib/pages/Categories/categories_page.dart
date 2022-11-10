@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:avaliacao/core/app_text.dart';
 import 'package:avaliacao/models/category_model.dart';
 import 'package:avaliacao/models/product_arguments_model.dart';
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 class CategoriesPage extends StatefulWidget {
   final int tableNumber;
 
-  CategoriesPage({Key? key, required this.tableNumber}) : super(key: key);
+  const CategoriesPage({Key? key, required this.tableNumber}) : super(key: key);
 
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
