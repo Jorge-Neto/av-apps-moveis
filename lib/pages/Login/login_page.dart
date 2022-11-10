@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: AppColors.secondary,
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(8.0, 50.0, 10.0, 0),
         child: Column(
@@ -29,35 +29,37 @@ class _LoginPageState extends State<LoginPage> {
               height: 150,
               width: 150,
             ),
-            const Text(
-              'Usuário',
-              style: AppTextStyles.textWhite,
+            const SizedBox(
+              height: 100,
             ),
             TextField(
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
               controller: controllerUsername,
               keyboardType: TextInputType.text,
               textCapitalization: TextCapitalization.none,
               autocorrect: false,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(
+                  border: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.yellow)),
-                  labelText: 'Username'),
+                  labelText: 'Username',
+              labelStyle: TextStyle(color: Colors.black)
+              ),
             ),
             TextField(
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
               controller: controllerPassword,
               obscureText: true,
               keyboardType: TextInputType.text,
               textCapitalization: TextCapitalization.none,
               autocorrect: false,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(
+                  border: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.yellow)),
-                  labelText: 'Password'),
+                  labelText: 'Password',
+                  labelStyle: TextStyle(color: Colors.black)),
             ),
             const SizedBox(
-              height: 20,
+              height: 200,
             ),
             SizedBox(
               width: double.infinity,
@@ -70,6 +72,22 @@ class _LoginPageState extends State<LoginPage> {
                   backgroundColor: MaterialStateProperty.all(AppColors.primary),
                 ),
                 child: const Text('Acessar', style: AppTextStyles.buttonTextBlack),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 25),
+              child: SizedBox(
+                width: double.infinity,
+                height: 39,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed("/registration");
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(AppColors.primary),
+                  ),
+                  child: const Text('Criar conta', style: AppTextStyles.buttonTextBlack),
+                ),
               ),
             )
           ],
@@ -89,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
             TextButton(
               child: const Text("OK"),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed("/home");
               },
             ),
           ],
@@ -103,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Error!"),
+          title: const Text("Erro!"),
           content: Text(errorMessage),
           actions: <Widget>[
             TextButton(
@@ -130,8 +148,7 @@ class _LoginPageState extends State<LoginPage> {
     var response = await user.login();
 
     if (response.success) {
-      showSuccess("User was successfully login!");
-      Navigator.of(context).pushReplacementNamed("/home");
+      showSuccess("Login efetuado");
     } else {
       showError(response.error!.message);
     }
