@@ -15,8 +15,7 @@ class ConsumptionPage extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = model.itens![index];
           return ListTile(
-            title:
-                Text(item.name, style: AppTextStyles.consumptionItemTitle),
+            title: Text(item.name, style: AppTextStyles.consumptionItemTitle),
             trailing: Text("R\$ ${item.value.toStringAsFixed(2)}",
                 style: AppTextStyles.consumptionItemValue),
           );

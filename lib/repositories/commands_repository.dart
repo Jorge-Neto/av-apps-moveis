@@ -26,7 +26,7 @@ class CommandsRepository {
     try {
       QueryBuilder<ParseObject> queryCommand =
           QueryBuilder<ParseObject>(ParseObject('Comanda'))
-            ..whereEqualTo('objectId', 'UnFqIrar4A');
+            ..whereEqualTo('comTable', table);
 
       final ParseResponse parseResponse = await queryCommand.query();
       final object = (parseResponse.results?.first) as ParseObject;
@@ -34,7 +34,6 @@ class CommandsRepository {
       final id = object.objectId;
       final comCode = object.get<int>('comCode')!;
       final comTable = object.get<int>('comTable')!;
-      final comValue = object.get('comValue')!;
       final itens = object.get("consumption");
 
       List<ProductModel> productsList = [];
@@ -52,7 +51,6 @@ class CommandsRepository {
         objectId: id!,
         comCode: comCode,
         comTable: comTable,
-        comValue: comValue.toDouble(),
         itens: productsList,
       );
 
