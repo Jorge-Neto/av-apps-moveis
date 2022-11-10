@@ -5,6 +5,7 @@ import 'package:avaliacao/pages/Consumption/consumption_page.dart';
 import 'package:avaliacao/pages/Home/home_page.dart';
 import 'package:avaliacao/pages/Login/login_page.dart';
 import 'package:avaliacao/pages/Products/product_page.dart';
+import 'package:avaliacao/pages/Registraion/registration_page.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
@@ -15,6 +16,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Lanchonete',
       theme: ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: AppColors.primary,
           secondary: AppColors.secondary,
@@ -28,6 +30,7 @@ class AppWidget extends StatelessWidget {
             tableNumber: ModalRoute.of(context)!.settings.arguments as int),
         "/consumption": (context) => ConsumptionPage(
             tableNumber: ModalRoute.of(context)!.settings.arguments as int),
+        "/registration": (context) => RegistrationPage(),
         "/products": (context) {
           final arguments =
               ModalRoute.of(context)!.settings.arguments as ProductArguments;
