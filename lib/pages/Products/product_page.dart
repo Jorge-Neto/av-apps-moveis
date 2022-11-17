@@ -51,6 +51,20 @@ class ProductsPage extends StatelessWidget {
     return const Center(child: LinearProgressIndicator());
   }
 
+  _builderBottomButton(){
+    return ElevatedButton(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.black)),
+        onPressed: () {
+        },
+        child: const Text(
+          "Teste",
+          style: AppTextStyles.buttonTextWhite,
+        )
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

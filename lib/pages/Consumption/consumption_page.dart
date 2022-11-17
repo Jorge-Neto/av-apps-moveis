@@ -44,20 +44,38 @@ class ConsumptionPage extends StatelessWidget {
   _buidButton(CommandModel comanda, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-      child: SizedBox(
-        height: 40,
-        width: double.infinity,
-        child: ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.black)),
-            onPressed: () {
-              repository.clearCommand(comanda);
-              Navigator.of(context).pushReplacementNamed("/home");
-            },
-            child: const Text(
-              "Encerrar",
-              style: AppTextStyles.buttonTextWhite,
-            )),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 40,
+            width: double.infinity,
+            child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black)),
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed("/registration");
+                },
+                child: const Text(
+                  "Adicionar Mais Ites",
+                  style: AppTextStyles.buttonTextWhite,
+                )),
+          ),
+          SizedBox(
+            height: 40,
+            width: double.infinity,
+            child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black)),
+                onPressed: () {
+                  repository.clearCommand(comanda);
+                  Navigator.of(context).pushReplacementNamed("/home");
+                },
+                child: const Text(
+                  "Encerrar",
+                  style: AppTextStyles.buttonTextWhite,
+                )),
+          ),
+        ],
       ),
     );
   }
