@@ -6,6 +6,7 @@ import 'package:avaliacao/pages/Home/home_page.dart';
 import 'package:avaliacao/pages/Login/login_page.dart';
 import 'package:avaliacao/pages/Products/product_page.dart';
 import 'package:avaliacao/pages/Registraion/registration_page.dart';
+import 'package:avaliacao/pages/Settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
@@ -30,7 +31,8 @@ class AppWidget extends StatelessWidget {
             tableNumber: ModalRoute.of(context)!.settings.arguments as int),
         "/consumption": (context) => ConsumptionPage(
             tableNumber: ModalRoute.of(context)!.settings.arguments as int),
-        "/registration": (context) => RegistrationPage(),
+        "/registration": (context) => const RegistrationPage(),
+        "/settings": (context) => const SettingsPage(),
         "/products": (context) {
           final arguments =
               ModalRoute.of(context)!.settings.arguments as ProductArguments;

@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
+
   @override
   _RegistrationPage createState() => _RegistrationPage();
 }
@@ -11,6 +14,7 @@ class _RegistrationPage extends State<RegistrationPage> {
   final controllerUsername = TextEditingController();
   final controllerPassword = TextEditingController();
   final controllerEmail = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +79,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                 SizedBox(
                   height: 8,
                 ),
-                Container(
+                SizedBox(
                   height: 50,
                   child: TextButton(
                     child: const Text('Criar'),

@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 50.0, 10.0, 0),
+          padding: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 0),
           child: Column(
             children: [
               Image.asset(
@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(
                         borderSide: BorderSide(color: AppColors.colorYellow)),
-                    labelText: 'Username',
+                    labelText: 'Usuário',
                 labelStyle: TextStyle(color: Colors.black)
                 ),
               ),
@@ -56,14 +56,13 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: const InputDecoration(
                     border: UnderlineInputBorder(
                         borderSide: BorderSide(color: AppColors.colorYellow)),
-                    labelText: 'Password',
+                    labelText: 'Senha',
                     labelStyle: TextStyle(color: Colors.black)),
               ),
               const SizedBox(
-                height: 200,
+                height: 150,
               ),
               SizedBox(
-                width: double.infinity,
                 height: 39,
                 child: ElevatedButton(
                   onPressed: () {
@@ -78,7 +77,6 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 25),
                 child: SizedBox(
-                  width: double.infinity,
                   height: 39,
                   child: ElevatedButton(
                     onPressed: () {

@@ -13,36 +13,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          margin: const EdgeInsets.all(10),
-          child: Center(
-              child: ElevatedButton(
-            onPressed: () {
-              doUserLogout();
-            },
-            child: const Text('Log Out', style: AppTextStyles.buttonTextBlack),
-          )),
-        ),
-        Container(
-          margin: const EdgeInsets.all(10),
-          child: Center(
-              child: ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: AppColors.colorRed),
-            onPressed: () {
-              deleteUser();
-            },
-            child: const Text('Apagar conta',
-                style: AppTextStyles.buttonTextBlack),
-          )),
-        ),
-      ],
-    );
-  }
+  final controllerNewPassword = TextEditingController();
 
   void showSuccess(String message) {
     showDialog(
@@ -55,7 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
             TextButton(
               child: const Text("OK"),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed("/");
               },
             ),
           ],
@@ -84,12 +55,23 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  void resetUserPassword() async {
+    final password = controllerNewPassword.text.trim();
+    final user = await ParseUser.currentUser() as ParseUser;
+    user.password = password;
+    var response = await user.save();
+    if (response.success) {
+      showSuccess("Você será deslogado!");
+    } else {
+      showError(response.error!.message);
+    }
+  }
+
   void doUserLogout() async {
     final user = await ParseUser.currentUser() as ParseUser;
     var response = await user.logout();
     if (response.success) {
       showSuccess("Você foi deslogado!");
-      Navigator.of(context).pushReplacementNamed("/");
     } else {
       showError(response.error!.message);
     }
@@ -98,12 +80,76 @@ class _SettingsPageState extends State<SettingsPage> {
   void deleteUser() async {
     try {
       final currentUser = await ParseUser.currentUser() as ParseUser;
-      var userToDelete = ParseObject('User')..objectId = currentUser.objectId;
-      await userToDelete.delete();
-      showSuccess("O usuário foi deletado!");
-      Navigator.of(context).pushReplacementNamed("/");
+      var response = await currentUser.destroy();
+      if (response!.success) {
+        await currentUser.logout();
+        showSuccess("Este usuário foi deletado!");
+      } else {
+        showError(response.error!.message);
+      }
     } catch (e) {
       throw Exception(e);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'Deseja alterar sua senha?',
+          style: AppTextStyles.buttonTextBlack,
+        ),
+        Container(
+          padding: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
+          child: TextField(
+            style: const TextStyle(color: Colors.black),
+            controller: controllerNewPassword,
+            obscureText: true,
+            keyboardType: TextInputType.text,
+            textCapitalization: TextCapitalization.none,
+            autocorrect: false,
+            decoration: const InputDecoration(
+                border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.colorYellow)),
+                labelText: 'Insira a nova senha aqui',
+                labelStyle: TextStyle(color: Colors.black)),
+          ),
+        ),
+        SizedBox(
+          width: 200.0,
+          height: 39,
+          child: ElevatedButton(
+            onPressed: () {
+              resetUserPassword();
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(AppColors.primary),
+            ),
+            child: const Text('Resetar senha', style: AppTextStyles.buttonTextBlack),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(10, 50, 10, 5),
+          child: Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  doUserLogout();
+                },
+                child: const Text('Log Out', style: AppTextStyles.buttonTextBlack),
+              )),
+        ),
+        Center(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.colorRed),
+              onPressed: () {
+                deleteUser();
+              },
+              child: const Text('Apagar conta',
+                  style: AppTextStyles.buttonTextBlack),
+            )),
+      ],
+    );
   }
 }
