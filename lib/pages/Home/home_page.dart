@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Mesas | Comandas',
+        title: const Text('Lanchonete',
             style: AppTextStyles.buttonTextBlack),
       ),
       body: _pages.elementAt(_tabIndex),
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.apps_sharp), label: "Mesas"),
           BottomNavigationBarItem(
               icon: Icon(Icons.inventory_2_sharp), label: "Itens"),
-          BottomNavigationBarItem(icon: Icon(Icons.exit_to_app), label: "Sair"),
+          BottomNavigationBarItem(icon: Icon(Icons.account_box), label: "Conta"),
         ],
       ),
     );

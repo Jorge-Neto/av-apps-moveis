@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
 import 'package:avaliacao/components/product_widget.dart';
+import 'package:avaliacao/core/app_colors.dart';
 import 'package:avaliacao/core/app_text.dart';
 import 'package:avaliacao/models/product_model.dart';
 import 'package:avaliacao/repositories/products_repository.dart';
@@ -32,7 +33,7 @@ class ProductsPage extends StatelessWidget {
     return const Center(
       child: Text(
         'Erro ao buscar produtos!',
-        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+        style: TextStyle(color: AppColors.colorRed, fontWeight: FontWeight.bold),
       ),
     );
   }

@@ -6,12 +6,18 @@ class ItemsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text(
-          'Items',
-          style: AppTextStyles.buttonTextBlack,
-        ),
+    return Scaffold(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Center(
+            child: Text(
+              'Página em construção',
+              style: AppTextStyles.buttonTextBlack,
+            ),
+          ),
+          Icon(Icons.close),
+        ],
       ),
     );
   }
