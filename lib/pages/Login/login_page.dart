@@ -20,77 +20,79 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(8.0, 50.0, 10.0, 0),
-        child: Column(
-          children: [
-            Image.asset(
-              AppImages.logo,
-              height: 150,
-              width: 150,
-            ),
-            const SizedBox(
-              height: 100,
-            ),
-            TextField(
-              style: TextStyle(color: Colors.black),
-              controller: controllerUsername,
-              keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.none,
-              autocorrect: false,
-              decoration: const InputDecoration(
-                  border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.yellow)),
-                  labelText: 'Username',
-              labelStyle: TextStyle(color: Colors.black)
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 50.0, 10.0, 0),
+          child: Column(
+            children: [
+              Image.asset(
+                AppImages.logo,
+                height: 150,
+                width: 150,
               ),
-            ),
-            TextField(
-              style: TextStyle(color: Colors.black),
-              controller: controllerPassword,
-              obscureText: true,
-              keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.none,
-              autocorrect: false,
-              decoration: const InputDecoration(
-                  border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.yellow)),
-                  labelText: 'Password',
-                  labelStyle: TextStyle(color: Colors.black)),
-            ),
-            const SizedBox(
-              height: 200,
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 39,
-              child: ElevatedButton(
-                onPressed: () {
-                  doUserLogin();
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(AppColors.primary),
+              const SizedBox(
+                height: 100,
+              ),
+              TextField(
+                style: TextStyle(color: Colors.black),
+                controller: controllerUsername,
+                keyboardType: TextInputType.text,
+                textCapitalization: TextCapitalization.none,
+                autocorrect: false,
+                decoration: const InputDecoration(
+                    border: UnderlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.colorYellow)),
+                    labelText: 'Username',
+                labelStyle: TextStyle(color: Colors.black)
                 ),
-                child: const Text('Acessar', style: AppTextStyles.buttonTextBlack),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: SizedBox(
+              TextField(
+                style: TextStyle(color: Colors.black),
+                controller: controllerPassword,
+                obscureText: true,
+                keyboardType: TextInputType.text,
+                textCapitalization: TextCapitalization.none,
+                autocorrect: false,
+                decoration: const InputDecoration(
+                    border: UnderlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.colorYellow)),
+                    labelText: 'Password',
+                    labelStyle: TextStyle(color: Colors.black)),
+              ),
+              const SizedBox(
+                height: 200,
+              ),
+              SizedBox(
                 width: double.infinity,
                 height: 39,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed("/registration");
+                    doUserLogin();
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(AppColors.primary),
                   ),
-                  child: const Text('Criar conta', style: AppTextStyles.buttonTextBlack),
+                  child: const Text('Acessar', style: AppTextStyles.buttonTextBlack),
                 ),
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 39,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed("/registration");
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(AppColors.primary),
+                    ),
+                    child: const Text('Criar conta', style: AppTextStyles.buttonTextBlack),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -146,7 +148,6 @@ class _LoginPageState extends State<LoginPage> {
     final user = ParseUser(username, password, null);
 
     var response = await user.login();
-
     if (response.success) {
       showSuccess("Login efetuado");
     } else {

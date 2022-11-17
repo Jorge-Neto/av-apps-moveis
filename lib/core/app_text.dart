@@ -22,7 +22,7 @@ class AppTextStyles {
   );
 
   static const TextStyle textGrey = TextStyle(
-      color: Color(0xFFABABAB),
+      color: Color(0xFF9E9E9E),
       fontSize: 18,
       fontWeight: FontWeight.bold
   );
@@ -52,13 +52,13 @@ class AppTextStyles {
   );
 
   static const TextStyle consumptionItemTitle = TextStyle(
-      color: Colors.black38,
+      color: Color(0xFF9E9E9E),
       fontSize: 18,
       fontWeight: FontWeight.bold
   );
 
   static const TextStyle consumptionItemValue = TextStyle(
-      color: Colors.black,
+      color: Color(0xFF212121),
       fontSize: 18,
       fontWeight: FontWeight.bold
   );
